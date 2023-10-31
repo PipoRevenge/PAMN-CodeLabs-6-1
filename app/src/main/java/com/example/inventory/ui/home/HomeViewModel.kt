@@ -30,8 +30,12 @@ import kotlinx.coroutines.flow.stateIn
  */
 class HomeViewModel(itemsRepository: ItemsRepository) : ViewModel() {
 
+    /**
+     * Holds home ui state. The list of items are retrieved from [ItemsRepository] and mapped to
+     * [HomeUiState]
+     */
     val homeUiState: StateFlow<HomeUiState> =
-        itemsRepository.getAllItemsStream().map{ HomeUiState(it) }
+        itemsRepository.getAllItemsStream().map { HomeUiState(it) }
             .stateIn(
                 scope = viewModelScope,
                 started = SharingStarted.WhileSubscribed(TIMEOUT_MILLIS),
